@@ -4,8 +4,8 @@ services:
   mailserver:
     image: docker.io/mailserver/docker-mailserver:latest
     container_name: mailserver
-    hostname: mail.example.com
-    domainname: example.com
+    hostname: mail.jablonowski.dev
+    domainname: jablonowski.com
     restart: always
     ports:
       - "25:25" # SMTP
