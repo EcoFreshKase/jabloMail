@@ -1,0 +1,26 @@
+version: "3.8"
+
+services:
+  mailserver:
+    image: docker.io/mailserver/docker-mailserver:latest
+    container_name: mailserver
+    hostname: mail.example.com
+    domainname: example.com
+    restart: always
+    ports:
+      - "25:25" # SMTP
+      - "587:587" # SMTP Submission
+      - "993:993" # IMAPS
+    volumes:
+      - ./mail-data:/var/mail
+      - ./mail-state:/var/mail-state
+      - ./config:/tmp/docker-mailserver/
+    environment:
+      - ENABLE_SPAMASSASSIN=1
+      - ENABLE_CLAMAV=1
+      - ENABLE_FAIL2BAN=1
+      - ONE_DIR=1
+      - DMS_DEBUG=0
+    cap_add:
+      - NET_ADMIN
+    env_file: mailserver.env
